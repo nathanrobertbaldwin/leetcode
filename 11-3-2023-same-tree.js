@@ -20,9 +20,11 @@ function inorderTraversal(root) {
   if (root === null) return res;
 
   function traverser(currNode) {
-    if (currNode.left) traverser(currNode.left);
-    if (currNode.val !== null) res.push(currNode.val);
-    if (currNode.right) traverser(currNode.right);
+    if (!currNode.left) res.push(" ");
+    else traverser(currNode.left);
+    res.push(currNode.val);
+    if (!currNode.right) res.push(" ");
+    else traverser(currNode.right);
   }
 
   traverser(root);
@@ -43,11 +45,16 @@ class Node {
   }
 }
 
-rootP = new Node(1);
-rootP.right = new Node(1);
+let rootP = new Node(1);
+rootP.right = new Node(2);
 
-rootQ = new Node(1);
-rootQ.left = new Node(null);
-rootQ.right = new Node(1);
+let rootQ = new Node(1);
+rootQ.left = new Node(2);
 
-console.log(isSameTree(rootP, rootQ));
+function isSameTreeV2(p, q) {
+  if (p === null && q === null) return true;
+  if (p === null || q === null || p.val !== q.val) return false;
+  return isSameTreeV2(p.left, q.left) && isSameTree(p.right, q.right);
+}
+
+console.log(isSameTreeV2(rootP, rootQ));
