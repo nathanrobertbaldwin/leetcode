@@ -19,10 +19,12 @@
 
 function inorderTraversal(root) {
   let res = [];
+  if (root === null) return res;
+  
   function traverser(currNode) {
     if (currNode.left) traverser(currNode.left);
-    if (currNode.right) traverser(currNode.right);
     res.push(currNode.val);
+    if (currNode.right) traverser(currNode.right);
   }
 
   traverser(root);
