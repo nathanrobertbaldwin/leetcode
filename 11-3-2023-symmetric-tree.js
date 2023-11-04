@@ -6,7 +6,12 @@
 // Output: true
 
 function isSymmetric(root) {
-  return isSymmetric(root.left) === isSymmetric(root.right);
+  function splitTrees(p, q) {
+    if (p === null && q === null) return true;
+    if (p === null || q === null || p.val !== q.val) return false;
+    return splitTrees(p.left, q.right) && splitTrees(p.right, q.left);
+  }
+  return splitTrees(root.left, root.right);
 }
 
 class Node {
@@ -17,8 +22,12 @@ class Node {
   }
 }
 
-root = new Node(1);
-root.left = new Node(2);
-root.right = new Node(2);
-root.left.right = new Node(4);
-root.right = new Node(5);
+rootP = new Node(1);
+rootP.left = new Node(2);
+rootP.left.left = new Node(3);
+rootP.left.right = new Node(4);
+rootP.right = new Node(2);
+rootP.right.left = new Node(4);
+rootP.right.right = new Node(2);
+
+console.log(isSymmetric(rootP));
