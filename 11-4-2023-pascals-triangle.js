@@ -31,4 +31,6 @@ function pascalsTriangle(n) {
   return res;
 }
 
-console.log(pascalsTriangle(5));
+console.log(pascalsTriangle(10));
+
+// Can you generate the nth row of Pascal's triangle without generating the whole triangle for n - 1;
