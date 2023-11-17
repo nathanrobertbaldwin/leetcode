@@ -9,15 +9,14 @@
 // Output: 4
 
 function closestValue(root, target) {
-    let closest = root.val;
+    let closest;
     function searcher(root) {
-        if (root.left && target < root.val) searcher(root.left)
-        if (Math.abs(root.val - target) <= Math.abs(closest - target)) {
-            if (Math.abs(root.val - target === Math.abs(closest - target))) closest = Math.min(root.val, closest);
-            else closest = root.val;
-
-        }
-        if (root.right && target > root.val) searcher(root.right)
+        if (!root) return;
+        if (root.val === target) return root.val;
+        if (Math.abs(root.val - target) < Math.abs(closest - target)) closest = root.val;
+        if (Math.abs(root.val - target) === Math.abs(closest - target)) closest = Math.min(closest, root.val)
+        if (target < root.val) searcher(root.left)
+        if (target > root.val) searcher(root.right)
     }
     searcher(root)
     return closest
