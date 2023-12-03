@@ -18,5 +18,5 @@ console.log(isPalindrome("0P"));
 
 // Can also use: s.toLowerCase().replace(/[^a-z0-9]/g, "")
 // 1. [^] negates a range of characters.
-// 2. g is the global flag 
+// 2. g is the global flag
 // 3. i is case insensitive. I like the toLowerCase() first.
