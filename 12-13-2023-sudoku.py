@@ -71,7 +71,7 @@ def _canAddtoQuadrant(quadrantData, row, col, testNum):
     return testNum not in quadrantData[quadrant]
 
 
-def solveSudoku(sudoku, idxStart=0):
+def solveSudoku(sudoku):
     rowData = _getRowData(sudoku)
     colData = _getColData(sudoku)
     quadrantData = _getQuadrantData(sudoku)
@@ -89,36 +89,34 @@ def solveSudoku(sudoku, idxStart=0):
                         rowData[row].add(i)
                         colData[col].add(i)
                         quadrantData[_mapQuandrant(row, col)].add(i)
-                        break
+                        if solveSudoku(sudoku) == True:
+                            return True
+                        sudoku[row][col] = 0
+                        rowData[row].remove(i)
+                        colData[col].remove(i)
+                        quadrantData[_mapQuandrant(row, col)].remove(i)
+                return False
 
-    return sudoku
+    return True
 
 
-testOne = [
-    [1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [2, 0, 0, 0, 0, 0, 0, 0, 0],
-    [3, 0, 0, 0, 0, 0, 0, 0, 0],
-    [4, 0, 0, 0, 0, 0, 0, 0, 0],
-    [5, 0, 0, 0, 0, 0, 0, 0, 0],
-    [6, 0, 0, 0, 0, 0, 0, 0, 0],
-    [7, 0, 0, 0, 0, 0, 0, 0, 0],
-    [8, 0, 0, 0, 0, 0, 0, 0, 0],
-    [9, 0, 0, 0, 0, 0, 0, 0, 0],
+board = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
+import time
 
-testTwo = [
-    [1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 2, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 3, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 4, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 5, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 6, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 7, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 8, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 9],
-]
+start = time.time()
+a = solveSudoku(board)
 
-a = solveSudoku(testTwo)
+for row in board:
+    print(*row)
 
-for row in a:
-    print(row)
+print("time =", time.time() - start)
