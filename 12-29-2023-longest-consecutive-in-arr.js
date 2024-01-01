@@ -31,20 +31,23 @@ function sortArr(a) {
   }
 }
 
-function longestConsecutiveSequence(a) {
+function longestConsecutive(a) {
+  if (a.length === 0) return 0;
   a = sortArr(a);
+  console.log(a);
 
   let maxSequenceLength = 0;
   let sequenceLength = 1;
 
   for (let i = 0; i < a.length - 1; i++) {
+    if (a[i] === a[i + 1]) continue;
     if (a[i] + 1 === a[i + 1]) {
       sequenceLength++;
     } else {
       if (sequenceLength > maxSequenceLength) {
         maxSequenceLength = sequenceLength;
-        sequenceLength = 1;
       }
+      sequenceLength = 1;
     }
   }
 
@@ -55,4 +58,4 @@ function longestConsecutiveSequence(a) {
   return maxSequenceLength;
 }
 
-console.log(longestConsecutiveSequence([0, 3, 7, 2, 5, 8, 4, 6, 0, 1]));
+console.log(longestConsecutive([9, 1, -3, 2, 4, 8, 3, -1, 6, -2, -4, 7]));
