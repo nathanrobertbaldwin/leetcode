@@ -88,53 +88,41 @@
 
 def _makeRemainderSets(k, arr):
     rem_set = {}
-    rem_groups = {}
 
     for num in arr:
         rem = num % k
-        if rem in rem_set and rem != 0:
+        if rem in rem_set:
             rem_set[rem] += 1
-            rem_groups[rem].append(num)
+
         else:
             rem_set[rem] = 1
-            rem_groups[rem] = [num]
 
-    return (rem_set, rem_groups)
+    for rem in rem_set:
+        if (rem + rem) % k == 0:
+            rem_set[rem] = 1
+
+    print(rem_set)
+    return rem_set
 
 
 def nonDivisibleSubset(k, arr):
-    (rem_sets, rem_groups) = _makeRemainderSets(k, arr)
-    return rem_groups
+    rem_sets = _makeRemainderSets(k, arr)
     rems = list(rem_sets.keys())
 
     max_count = 0
 
     for i in range(len(rems)):
-        valid_rems = set()
-        valid_rems.add(rems[i])
+        rem_combo = set()
+        rem_combo.add(rems[i])
 
         for j in range(len(rems)):
-            if i == j:
-                continue
-            elif (k - rems[j]) not in valid_rems:
-                valid_rems.add(rems[j])
+            if (k - rems[j]) not in rem_combo:
+                rem_combo.add(rems[j])
 
-        actual_nums = []
+        print(rem_combo)
         count = 0
-        for rem in valid_rems:
+        for rem in rem_combo:
             count += rem_sets[rem]
-            actual_nums = [*actual_nums, *rem_groups[rem]]
-
-        print(actual_nums)
-
-        for i in range(len(actual_nums)):
-            for j in range(len(actual_nums)):
-                if i == j:
-                    continue
-                print(actual_nums[i], "+", actual_nums[j], "%", k)
-                print((actual_nums[i] + actual_nums[j]) % k)
-
-        print("======================")
 
         if max_count < count:
             max_count = count
