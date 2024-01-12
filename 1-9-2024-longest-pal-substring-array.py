@@ -30,9 +30,17 @@ def longest_pal_array(s):
                     res[i - d] = d * 2 + 2
                 d += 1
 
+    print(sum(res))
     return res
 
 
-s = "abcabba"
+# s = "aa"
+# s1 = "ab"
 
-print(longest_pal_array(s))
+a = "aabaaaaaaca"
+
+# 1. a string of the same letters has highest sum
+# 2. a palindrome can only have an odd collection
+# 3. if you detect palindromes one space apart
+# combining them will produce max results
+print(longest_pal_array(a))
