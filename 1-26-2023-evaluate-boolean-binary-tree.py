@@ -1,6 +1,6 @@
 def evaluateTree(root):
     def evaluate(root):
-        if root == Null:
+        if root == None:
             return
         if root.val == 0:
             return False
