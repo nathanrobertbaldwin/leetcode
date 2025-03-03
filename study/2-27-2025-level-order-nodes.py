@@ -37,11 +37,63 @@ class Solution:
         return nodes
 
 
+class Solution:
+    def levelOrder(self, root):
+
+        if root == None:
+            return []
+
+        currentLevelQueue = [root]
+        nodes = []
+
+        while True:
+            currentLevelNodes = []
+            nextLevelQueue = []
+
+            while len(currentLevelQueue) > 0:
+                currentNode = currentLevelQueue.pop(0)
+                if currentNode.left != None:
+                    nextLevelQueue.append(currentNode.left)
+                if currentNode.right != None:
+                    nextLevelQueue.append(currentNode.right)
+                currentLevelNodes.append(currentNode.val)
+            nodes.append(currentLevelNodes)
+
+            currentLevelQueue = nextLevelQueue
+            if len(currentLevelQueue) == 0:
+                break
+
+        return nodes
+
+
+# empty list
+root = None
+print(Solution.levelOrder(None, root))  # []
+
+# linked list
 root = TreeNode(1)
 root.left = TreeNode(2)
 root.left.left = TreeNode(3)
 root.left.left.left = TreeNode(4)
 root.left.left.left.left = TreeNode(5)
+print(Solution.levelOrder(None, root))  # [[1], [2], [3], [4], [5]]
 
+# balanced tree
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.left.left = TreeNode(4)
+root.left.right = TreeNode(5)
+root.right.left = TreeNode(6)
+root.right.right = TreeNode(7)
+print(Solution.levelOrder(None, root))  #  [[1],[2,3],[4,5,6,7]]
 
-print(Solution.levelOrder(None, root))
+# imbalanced tree
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.left.left = TreeNode(4)
+root.left.right = None
+root.right.left = None
+root.right.right = TreeNode(7)
+print(Solution.levelOrder(None, root))  #  [[1],[2,3],[4,7]]
